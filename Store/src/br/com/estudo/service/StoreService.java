@@ -34,8 +34,7 @@ public class StoreService {
             storeEntity.setAllProductQuantity(storeEntity.getAllProductQuantity() + singleProduct.getProductQuantity());
             ID[0]++;
         });
-
-        System.out.println("Valor total dos itens em estoque; R$" + storeEntity.getAllProductsValue());
+        System.out.println("Valor total dos itens em estoque: R$" + storeEntity.getAllProductsValue());
         System.out.println("Quantiade total de itens em estoque: " + storeEntity.getAllProductQuantity());
     }
 
@@ -45,5 +44,19 @@ public class StoreService {
         System.out.println("Valor: R$ " + storeEntity.getProductValue());
         System.out.println("Quantidade: " + storeEntity.getProductQuantity());
         System.out.println("Valor agregado em estoque: " + storeEntity.getTotalProductValue());
+    }
+
+    public void upgradeNewProduct (StoreEntity storeEntity, String newProduct) {
+        storeEntity.setProduct(newProduct);
+    }
+
+    public void upgradeNewValue (StoreEntity storeEntity, double newProductValue) {
+        storeEntity.setProductValue(newProductValue);
+        storeEntity.setTotalProductValue(newProductValue * storeEntity.getProductQuantity());
+    }
+
+    public void upgradeNewQuantity (StoreEntity storeEntity, int newProductQuantity) {
+        storeEntity.setProductQuantity(newProductQuantity);
+        storeEntity.setAllProductsValue(newProductQuantity * storeEntity.getProductValue());
     }
 }

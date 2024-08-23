@@ -21,6 +21,7 @@ public class MainClass {
         double newProductValue;
         int newProductQuantity;
         double newTotalProductValue;
+        int index;
 
         System.out.println("Bem vindo ao sistema da verdureira Bigbom 2.0");
         do {
@@ -67,13 +68,13 @@ public class MainClass {
                     }
 
                     System.out.print("Informe o ID od produto a ser buscado pelo sistema: ");
-                    int iDFind = input.nextInt();
-                    if (iDFind > storage.size() || iDFind < 0) {
+                    index = input.nextInt();
+                    if (index > storage.size() || index < 0) {
                         System.out.println("Cadastro não localizado, retornando ao menu principal");
                         break;
                     }
 
-                    StoreEntity itensFound = storage.get(iDFind);
+                    StoreEntity itensFound = storage.get(index);
                     storeController.findItens(itensFound);
                     break;
                 case 4:
@@ -84,26 +85,65 @@ public class MainClass {
                     }
 
                     System.out.print("Informe o ID do produto que será editado pelo sistema: ");
-                    int IdEdit = input.nextInt();
-                    if (IdEdit > storage.size() || IdEdit < 0) {
+                    index = input.nextInt();
+                    if (index > storage.size() || index < 0) {
                         System.out.println("Cadastro não localizado, retornando ao menu principal");
                         break;
                     }
 
-                    input.nextLine();
-                    System.out.print("Digite o novo nome do produto: ");
-                    newProduct = input.nextLine();
+                    System.out.println("------------------------");
+                    System.out.println("Indique o atributo que voce deseja alterar");
+                    System.out.print("""
+                            1 - Alterar nome do produto
+                            2 - Alterar valor do produto
+                            3 - Alterar quantidade do produto
+                            4 - Editar todos os parametros
+                            Digite o valor desejado""" + "--> ");
+                    int newValue = input.nextInt();
 
-                    System.out.print("Digite o novo valor do produto: ");
-                    newProductValue = input.nextDouble();
+                    StoreEntity productToUpdate = storage.get(index);
+                    
+                    switch (newValue) {
+                        case 1:
+                            input.nextLine();
+                            System.out.print("Digite o novo nome do produto: ");
+                            newProduct = input.nextLine();
+                            storeController.upgradeNewProduct(productToUpdate, newProduct);
+                            System.out.println("Nome alterado com sucesso!");
+                            break;
+                        case 2:
+                            input.nextLine();
+                            System.out.print("Digite o novo valor do produto: ");
+                            newProductValue = input.nextDouble();
+                            storeController.upgradeNewValue(productToUpdate, newProductValue);
+                            System.out.println("Valor alterado com sucesso!");
+                            break;
+                        case 3:
+                            input.nextLine();
+                            System.out.print("Digite a nova quantidade: ");
+                            newProductQuantity = input.nextInt();
+                            storeController.upgradeNewQuantity(productToUpdate, newProductQuantity);
+                            System.out.println("Quantidade em estoque alterada com sucesso!");
+                            break;
+                        case 4:
+                            input.nextLine();
+                            System.out.print("Digite o novo nome do produto: ");
+                            newProduct = input.nextLine();
 
-                    System.out.print("Digite a nova quantidade: ");
-                    newProductQuantity = input.nextInt();
+                            System.out.print("Digite o novo valor do produto: ");
+                            newProductValue = input.nextDouble();
 
-                    newTotalProductValue = newProductValue * newProductQuantity;
+                            System.out.print("Digite a nova quantidade: ");
+                            newProductQuantity = input.nextInt();
 
-                    StoreEntity newStoreEntity = storeController.registerProduct(newProduct, newProductValue, newProductQuantity, newTotalProductValue);
-                    storage.set(IdEdit, newStoreEntity);
+                            newTotalProductValue = newProductValue * newProductQuantity;
+
+                            StoreEntity newStoreEntity = storeController.registerProduct(newProduct, newProductValue, newProductQuantity, newTotalProductValue);
+                            storage.set(index, newStoreEntity);
+                            break;
+                        default:
+                            System.out.println("Valor inválido, voltando ao menu principal");
+                    }
                     break;
                 case 5:
                     input.nextLine();
@@ -113,13 +153,13 @@ public class MainClass {
                     }
 
                     System.out.print("Informe o ID do produto que será REMOVIDO do sistema: ");
-                    int IdRemove = input.nextInt();
-                    if (IdRemove > storage.size() || IdRemove < 0) {
+                    index = input.nextInt();
+                    if (index > storage.size() || index < 0) {
                         System.out.println("Cadastro não localizado, retornando ao menu principal");
                         break;
                     }
 
-                    storage.remove(IdRemove);
+                    storage.remove(index);
                     System.out.println("Item removido com sucesso");
                     break;
                 case 6:

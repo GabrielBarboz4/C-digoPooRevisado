@@ -19,4 +19,16 @@ public class StoreController {
     public void findItens (StoreEntity storeEntity) {
         storeService.findItens(storeEntity);
     }
+
+    public void upgradeNewProduct (StoreEntity storeEntity, String newProduct) {
+        storeService.upgradeNewProduct(storeEntity, newProduct);
+    }
+
+    public void upgradeNewValue (StoreEntity storeEntity, double newProductValue) {
+        storeService.upgradeNewValue(storeEntity, newProductValue);
+    }
+
+    public void upgradeNewQuantity (StoreEntity storeEntity, int newProductQuantity) {
+        storeService.upgradeNewQuantity(storeEntity, newProductQuantity);
+    }
 }
